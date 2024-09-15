@@ -4,41 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Album Photos - Anniversaire</title>
-    <!-- Inclure les scripts Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="d-flex flex-column justify-content-center w-100 h-100">
+    <div id="authContainer" class="d-flex flex-column justify-content-center w-100 h-100">
+        <h1 class="fw-light text-white">Veuillez entrer le mot de passe</h1>
+        <input type="password" id="passwordInput" placeholder="Mot de passe">
+        <button onclick="checkPassword()">Soumettre</button>
+    </div>
+
+    <div id="photoContainer" class="d-flex flex-column justify-content-center w-100 h-100" style="display:none;">
         <h1 class="fw-light text-white">Bienvenue aux Photos !</h1>
     </div>
 
     <script>
-        // Configuration de Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyC6DivM99Yd7ZsZaTFL4FR9KulgA4IA0Oo",
-            authDomain: "anniversaire1015.firebaseapp.com",
-            projectId: "anniversaire1015",
-            storageBucket: "anniversaire1015.appspot.com",
-            messagingSenderId: "214923591466",
-            appId: "1:214923591466:web:e49cbb7630b29d2f6ee853",
-        };
+        const correctPassword = 'votreMotDePasse'; // Remplacez par le mot de passe souhaité
 
-        // Initialisation de Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        function checkPassword() {
+            const enteredPassword = document.getElementById('passwordInput').value;
 
-        // Vérifier si l'utilisateur a passé la page de mot de passe
-        db.collection('settings').doc('password').get().then((doc) => {
-            const enteredPassword = localStorage.getItem('enteredPassword');
-            if (!enteredPassword || enteredPassword !== doc.data().password) {
-                // Rediriger vers auth.html si le mot de passe n'a pas été validé
-                window.location.href = 'auth.html';
+            if (enteredPassword === correctPassword) {
+                localStorage.setItem('enteredPassword', enteredPassword);
+                showPhotos();
+            } else {
+                alert('Mot de passe incorrect');
             }
-        }).catch((error) => {
-            console.error('Erreur Firestore:', error);
-        });
+        }
+
+        function showPhotos() {
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('photoContainer').style.display = 'flex';
+        }
+
+        function checkAuth() {
+            const enteredPassword = localStorage.getItem('enteredPassword');
+            if (enteredPassword === correctPassword) {
+                showPhotos();
+            } else {
+                document.getElementById('photoContainer').style.display = 'none';
+            }
+        }
+
+        // Vérifier l'authentification au chargement de la page
+        checkAuth();
     </script>
 </body>
 </html>
