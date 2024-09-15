@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentification</title>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="d-flex flex-column justify-content-center w-100 h-100">
+        <h1 class="fw-light text-white">Veuillez entrer le mot de passe</h1>
+        <input type="password" id="passwordInput" placeholder="Mot de passe">
+        <button onclick="checkPassword()">Soumettre</button>
+    </div>
+
+    <script>
+        // Configuration de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6DivM99Yd7ZsZaTFL4FR9KulgA4IA0Oo",
+            authDomain: "anniversaire1015.firebaseapp.com",
+            projectId: "anniversaire1015",
+            storageBucket: "anniversaire1015.appspot.com",
+            messagingSenderId: "214923591466",
+            appId: "1:214923591466:web:e49cbb7630b29d2f6ee853",
+        };
+
+        // Initialisation de Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(app);
+
+        function checkPassword() {
+            const enteredPassword = document.getElementById('passwordInput').value;
+
+            db.collection('settings').doc('password').get().then((doc) => {
+                if (doc.exists && enteredPassword === doc.data().password) {
+                    localStorage.setItem('enteredPassword', enteredPassword);
+                    window.location.href = 'index.html'; // Rediriger vers la page protégée
+                } else {
+                    alert('Mot de passe incorrect');
+                }
+            }).catch((error) => {
+                console.error('Erreur Firestore:', error);
+            });
+        }
+    </script>
+</body>
+</html>
