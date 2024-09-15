@@ -18,10 +18,16 @@
     </div>
 
     <script>
-        const correctPassword = 'votreMotDePasse'; // Remplacez par le mot de passe souhaité
+        // Fonction pour obtenir le mot de passe masqué
+        function getPassword() {
+
+            const encodedPassword = 'TWFyZ2F1eEZhdXN0aW4xMDE1'; 
+            return atob(encodedPassword); 
+        }
 
         function checkPassword() {
             const enteredPassword = document.getElementById('passwordInput').value;
+            const correctPassword = getPassword();
 
             if (enteredPassword === correctPassword) {
                 localStorage.setItem('enteredPassword', enteredPassword);
@@ -38,6 +44,8 @@
 
         function checkAuth() {
             const enteredPassword = localStorage.getItem('enteredPassword');
+            const correctPassword = getPassword();
+
             if (enteredPassword === correctPassword) {
                 showPhotos();
             } else {
@@ -45,7 +53,6 @@
             }
         }
 
-        // Vérifier l'authentification au chargement de la page
         checkAuth();
     </script>
 </body>
