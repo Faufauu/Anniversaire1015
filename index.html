@@ -1,45 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Anniversaire1015</title>
+    <title>Album Photos - Anniversaire</title>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
     <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id="passwordSection" class="d-flex flex-column justify-content-center w-100 h-100">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <h1 class="fw-light text-white m-0">Bon Anniversaire !</h1>
-            <p class="text-white">Veuillez entrer le mot de passe pour accéder au site</p>
-            <input type="password" id="password" placeholder="Mot de passe" class="form-control mb-3">
-            <button onclick="checkPassword()" class="btn btn-outline-light">Valider</button>
-            <p id="error-message" class="text-white"></p>
-        </div>
-    </div>
-
-    <div id="contentSection" class="d-none d-flex flex-column justify-content-center w-100 h-100">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-            <h1 class="fw-light text-white m-0">Bienvenue !</h1>
-            <div class="btn-group my-5">
-                <a href="https://votregalerie.com" class="btn btn-outline-light">Voir les photos</a>
-            </div>
+    <div class="d-flex flex-column justify-content-center w-100 h-100">
+        <h1 class="fw-light text-white">Bienvenue aux Photos !</h1>
+        <div class="btn-group my-5">
+            <a href="https://votregalerie.com" class="btn btn-outline-light">Voir les photos</a>
         </div>
     </div>
 
     <script>
-        const correctPassword = "secret123"; // Changez le mot de passe ici
+        // Configuration de Firebase
+        const firebaseConfig = {
+              apiKey: "AIzaSyC6DivM99Yd7ZsZaTFL4FR9KulgA4IA0Oo",
+              authDomain: "anniversaire1015.firebaseapp.com",
+              projectId: "anniversaire1015",
+              storageBucket: "anniversaire1015.appspot.com",
+              messagingSenderId: "214923591466",
+              appId: "1:214923591466:web:e49cbb7630b29d2f6ee853",
+        };
 
-        function checkPassword() {
-            const enteredPassword = document.getElementById('password').value;
-            if (enteredPassword === correctPassword) {
-                document.getElementById('passwordSection').classList.add('d-none');
-                document.getElementById('contentSection').classList.remove('d-none');
-            } else {
-                document.getElementById('error-message').textContent = 'Mot de passe incorrect, veuillez réessayer.';
+        // Initialisation de Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(app);
+
+        // Vérifier si l'utilisateur a passé la page de mot de passe
+        db.collection('settings').doc('password').get().then((doc) => {
+            const enteredPassword = localStorage.getItem('enteredPassword');
+            if (!enteredPassword || enteredPassword !== doc.data().password) {
+                // Rediriger vers auth.html si le mot de passe n'a pas été validé
+                window.location.href = 'auth.html';
             }
-        }
+        }).catch((error) => {
+            console.error('Erreur Firestore:', error);
+        });
     </script>
 </body>
 </html>
