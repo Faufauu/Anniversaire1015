@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
-    <!-- Utiliser les versions non-modulaires de Firebase via CDN -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Connexion - Anniversaire1015</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-analytics.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="d-flex flex-column justify-content-center w-100 h-100">
-        <h1 class="fw-light text-white">Accès à l'album photo</h1>
-        <input type="password" id="password" placeholder="Entrez le mot de passe" class="form-control mb-3">
-        <button id="loginBtn" class="btn btn-outline-light">Se connecter</button>
-        <p id="error-message" class="text-white"></p>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h1 class="fw-light text-white m-0">Bon Anniversaire !</h1>
+            <input type="password" id="password" placeholder="Entrez le mot de passe">
+            <button id="loginBtn" class="btn btn-outline-light">Se Connecter</button>
+            <p id="error-message" class="text-danger"></p>
+        </div>
     </div>
 
     <script>
-        // Configuration de Firebase (votre configuration)
+        // Configuration de Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyC6DivM99Yd7ZsZaTFL4FR9KulgA4IA0Oo",
             authDomain: "anniversaire1015.firebaseapp.com",
@@ -31,18 +34,15 @@
         };
 
         // Initialiser Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const analytics = firebase.analytics();
+        firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
         // Gérer la connexion
         document.getElementById('loginBtn').addEventListener('click', function() {
             const enteredPassword = document.getElementById('password').value;
 
-            // Récupérer le mot de passe depuis Firestore
             db.collection('settings').doc('password').get().then((doc) => {
                 if (doc.exists && doc.data().password === enteredPassword) {
-                    // Stocker le mot de passe validé pour éviter une nouvelle demande
                     localStorage.setItem('enteredPassword', enteredPassword);
                     window.location.href = 'index.html'; // Rediriger vers les photos
                 } else {
