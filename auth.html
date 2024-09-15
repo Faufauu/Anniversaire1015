@@ -4,32 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+    <!-- Utiliser les versions non-modulaires de Firebase via CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics-compat.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="d-flex flex-column justify-content-center w-100 h-100">
-        <h1 class="fw-light text-white">Accès photos</h1>
+        <h1 class="fw-light text-white">Accès à l'album photo</h1>
         <input type="password" id="password" placeholder="Entrez le mot de passe" class="form-control mb-3">
         <button id="loginBtn" class="btn btn-outline-light">Se connecter</button>
         <p id="error-message" class="text-white"></p>
     </div>
 
     <script>
-        // Configuration de Firebase
+        // Configuration de Firebase (votre configuration)
         const firebaseConfig = {
-              apiKey: "AIzaSyC6DivM99Yd7ZsZaTFL4FR9KulgA4IA0Oo",
-              authDomain: "anniversaire1015.firebaseapp.com",
-              projectId: "anniversaire1015",
-              storageBucket: "anniversaire1015.appspot.com",
-              messagingSenderId: "214923591466",
-              appId: "1:214923591466:web:e49cbb7630b29d2f6ee853",
+            apiKey: "AIzaSyC6DivM99Yd7ZsZaTFL4FR9KulgA4IA0Oo",
+            authDomain: "anniversaire1015.firebaseapp.com",
+            projectId: "anniversaire1015",
+            storageBucket: "anniversaire1015.appspot.com",
+            messagingSenderId: "214923591466",
+            appId: "1:214923591466:web:e49cbb7630b29d2f6ee853",
+            measurementId: "G-WT8E8J9WDT"
         };
 
-        // Initialisation de Firebase
+        // Initialiser Firebase
         const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore(app);
+        const analytics = firebase.analytics();
+        const db = firebase.firestore();
 
         // Gérer la connexion
         document.getElementById('loginBtn').addEventListener('click', function() {
