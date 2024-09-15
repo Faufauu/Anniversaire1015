@@ -9,12 +9,37 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="d-flex flex-column justify-content-center w-100 h-100">
+    <div id="passwordSection" class="d-flex flex-column justify-content-center w-100 h-100">
         <div class="d-flex flex-column justify-content-center align-items-center">
             <h1 class="fw-light text-white m-0">Bon Anniversaire !</h1>
+            <p class="text-white">Veuillez entrer le mot de passe pour accéder au site</p>
+            <input type="password" id="password" placeholder="Mot de passe" class="form-control mb-3">
+            <button onclick="checkPassword()" class="btn btn-outline-light">Valider</button>
+            <p id="error-message" class="text-white"></p>
+        </div>
+    </div>
+
+    <div id="contentSection" class="d-none d-flex flex-column justify-content-center w-100 h-100">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h1 class="fw-light text-white m-0">Bienvenue !</h1>
             <div class="btn-group my-5">
+                <a href="https://votregalerie.com" class="btn btn-outline-light">Voir les photos</a>
             </div>
         </div>
     </div>
+
+    <script>
+        const correctPassword = "secret123"; // Changez le mot de passe ici
+
+        function checkPassword() {
+            const enteredPassword = document.getElementById('password').value;
+            if (enteredPassword === correctPassword) {
+                document.getElementById('passwordSection').classList.add('d-none');
+                document.getElementById('contentSection').classList.remove('d-none');
+            } else {
+                document.getElementById('error-message').textContent = 'Mot de passe incorrect, veuillez réessayer.';
+            }
+        }
+    </script>
 </body>
 </html>
