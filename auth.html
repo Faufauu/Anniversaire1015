@@ -37,15 +37,20 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // Gérer la connexion
+        // Fonction de connexion
         document.getElementById('loginBtn').addEventListener('click', function() {
+            console.log('Bouton cliqué');  // Vérifier si le clic est détecté
             const enteredPassword = document.getElementById('password').value;
+
+            console.log('Mot de passe saisi:', enteredPassword);  // Vérifier la valeur saisie
 
             db.collection('settings').doc('password').get().then((doc) => {
                 if (doc.exists && doc.data().password === enteredPassword) {
+                    console.log('Mot de passe correct');  // Vérifier la correspondance du mot de passe
                     localStorage.setItem('enteredPassword', enteredPassword);
-                    window.location.href = 'index.html'; // Rediriger vers les photos
+                    window.location.href = 'index.html';  // Rediriger vers les photos
                 } else {
+                    console.log('Mot de passe incorrect');  // Message d'erreur pour le mot de passe incorrect
                     document.getElementById('error-message').textContent = 'Mot de passe incorrect.';
                 }
             }).catch((error) => {
