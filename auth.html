@@ -27,8 +27,8 @@
         };
 
         // Initialisation de Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore(app);
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
 
         function checkPassword() {
             const enteredPassword = document.getElementById('passwordInput').value;
