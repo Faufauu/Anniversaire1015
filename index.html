@@ -5,24 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Album Photos - Anniversaire</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #282c34; /* Couleur de fond sombre */
+            color: #ffffff; /* Texte en blanc */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        #authContainer, #photoContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #3a3f47; /* Fond du conteneur */
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+        
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        button {
+            background-color: #61dafb; /* Couleur de bouton */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: #282c34;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #4fa3d6; /* Couleur du bouton au survol */
+        }
+        
+        #photoContainer {
+            display: none; /* Masquer initialement */
+        }
+    </style>
 </head>
 <body>
-    <div id="authContainer" class="d-flex flex-column justify-content-center w-100 h-100">
-        <h1 class="fw-light text-white">Veuillez entrer le mot de passe</h1>
+    <div id="authContainer">
+        <h1>Mot de Passe :</h1>
         <input type="password" id="passwordInput" placeholder="Mot de passe">
-        <button onclick="checkPassword()">Soumettre</button>
+        <button onclick="checkPassword()">Valider</button>
     </div>
 
-    <div id="photoContainer" class="d-flex flex-column justify-content-center w-100 h-100" style="display:none;">
-        <h1 class="fw-light text-white">Bienvenue aux Photos !</h1>
+    <div id="photoContainer">
+        <h1>Bienvenue !</h1>
     </div>
 
     <script>
         // Fonction pour obtenir le mot de passe masqué
         function getPassword() {
-
-            const encodedPassword = 'TWFyZ2F1eEZhdXN0aW4xMDE1'; 
-            return atob(encodedPassword); 
+            const encodedPassword = 'TWFyZ2F1eEZhdXN0aW4xMDE1'; // MargauxFaustin1015 en Base64
+            return atob(encodedPassword); // Décodage de Base64
         }
 
         function checkPassword() {
@@ -53,6 +110,7 @@
             }
         }
 
+        // Vérifier l'authentification au chargement de la page
         checkAuth();
     </script>
 </body>
