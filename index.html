@@ -16,7 +16,7 @@
             align-items: center;
             height: 100vh;
         }
-        
+
         #authContainer, #photoContainer {
             display: flex;
             flex-direction: column;
@@ -50,6 +50,7 @@
             justify-content: space-between;
             width: 100%;
             margin: 20px 0;
+            align-items: center;
         }
 
         .slider-container label {
@@ -93,6 +94,7 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
+            margin: 20px 0;
         }
 
         .image-container img {
@@ -112,11 +114,17 @@
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
-            margin-top: 20px;
+            margin: 10px;
         }
 
         .download-button:hover {
             background-color: #4fa3d6;
+        }
+
+        .slider-value {
+            font-size: 18px;
+            color: #ffffff;
+            margin: 0 10px;
         }
 
         #photoContainer {
@@ -141,10 +149,12 @@
             <div>
                 <label for="sliderLeft">Sélectionnez une photo (Gauche) :</label>
                 <input type="range" id="sliderLeft" min="1" max="10" value="1" oninput="updateImageLeft()">
+                <span id="sliderValueLeft" class="slider-value">1 an</span>
             </div>
             <div>
                 <label for="sliderRight">Sélectionnez une photo (Droite) :</label>
                 <input type="range" id="sliderRight" min="1" max="15" value="1" oninput="updateImageRight()">
+                <span id="sliderValueRight" class="slider-value">1 an</span>
             </div>
         </div>
 
@@ -198,15 +208,17 @@
             }
         }
 
-        // Mise à jour des images selon les sliders
+        // Mise à jour des images et des valeurs des sliders
         function updateImageLeft() {
             const sliderValue = document.getElementById('sliderLeft').value;
             document.getElementById('imageLeft').src = `photos/M${sliderValue}.jpg`;
+            document.getElementById('sliderValueLeft').textContent = `${sliderValue} an${sliderValue > 1 ? 's' : ''}`;
         }
 
         function updateImageRight() {
             const sliderValue = document.getElementById('sliderRight').value;
             document.getElementById('imageRight').src = `photos/F${sliderValue}.jpg`;
+            document.getElementById('sliderValueRight').textContent = `${sliderValue} an${sliderValue > 1 ? 's' : ''}`;
         }
 
         // Téléchargement de la photo
@@ -215,7 +227,7 @@
             let img = document.getElementById(imageId);
             let link = document.createElement('a');
             link.href = img.src;
-            link.download = img.src.split('/').pop(); // Utiliser le nom du fichier comme nom de téléchargement
+            link.download = img.src.split('/').pop();
             link.click();
         }
 
