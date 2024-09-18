@@ -44,6 +44,11 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
+        #showPassword {
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+
         button {
             background-color: #61dafb;
             border: none;
@@ -98,6 +103,9 @@
     <div id="authContainer">
         <h1>Mot de Passe :</h1>
         <input type="password" id="passwordInput" placeholder="Mot de passe">
+        <div id="showPassword">
+            <input type="checkbox" id="togglePassword"> <label for="togglePassword">Afficher le mot de passe</label>
+        </div>
         <button onclick="checkPassword()">Valider</button>
     </div>
 
@@ -123,7 +131,7 @@
     <script>
         // Fonction pour obtenir le mot de passe masqué
         function getPassword() {
-            const encodedPassword = 'TWFyZ2F1eEZhdXN0YjEwMTVhbnM='; // MargauxFaustin1015ans en Base64
+            const encodedPassword = 'TWFyZ2F1eEZhdXN0aW4xMDE1YW5z'; // MargauxFaustin1015ans encodé en Base64
             return atob(encodedPassword); // Décodage de Base64
         }
 
@@ -162,6 +170,16 @@
             document.getElementById('rightLabel').textContent = 'F' + rightValue;
             document.getElementById('photoDisplay').textContent = `Photo M${leftValue} & F${rightValue}`;
         }
+
+        // Fonction pour afficher/masquer le mot de passe
+        document.getElementById('togglePassword').addEventListener('change', function() {
+            const passwordInput = document.getElementById('passwordInput');
+            if (this.checked) {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        });
 
         // Vérifier l'authentification au chargement de la page
         checkAuth();
