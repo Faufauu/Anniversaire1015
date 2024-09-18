@@ -35,16 +35,20 @@
             text-align: center;
         }
 
-        input[type="password"] {
+        input[type="password"], input[type="text"] {
             width: 100%;
             padding: 10px;
             border: none;
             border-radius: 4px;
             margin-bottom: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 16px;
         }
 
         #showPassword {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-top: -10px;
             margin-bottom: 20px;
         }
@@ -97,6 +101,10 @@
             margin-top: 20px;
             color: white;
         }
+
+        .download-button {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -104,7 +112,8 @@
         <h1>Mot de Passe :</h1>
         <input type="password" id="passwordInput" placeholder="Mot de passe">
         <div id="showPassword">
-            <input type="checkbox" id="togglePassword"> <label for="togglePassword">Afficher le mot de passe</label>
+            <input type="checkbox" id="togglePassword"> 
+            <label for="togglePassword">Afficher le mot de passe</label>
         </div>
         <button onclick="checkPassword()">Valider</button>
     </div>
@@ -114,18 +123,20 @@
         <div id="sliders">
             <div class="slider">
                 <label for="sliderLeft">Slider Gauche (M1 - M10)</label>
-                <input type="range" id="sliderLeft" min="1" max="10" value="1" oninput="updatePhoto()">
+                <input type="range" id="sliderLeft" min="1" max="10" value="1" oninput="updateLeftPhoto()">
                 <p id="leftLabel">M1</p>
+                <div id="leftPhoto" class="photo">M1</div>
+                <button class="download-button" onclick="downloadPhoto('M', document.getElementById('sliderLeft').value)">Télécharger</button>
             </div>
 
             <div class="slider">
                 <label for="sliderRight">Slider Droite (F1 - F15)</label>
-                <input type="range" id="sliderRight" min="1" max="15" value="1" oninput="updatePhoto()">
+                <input type="range" id="sliderRight" min="1" max="15" value="1" oninput="updateRightPhoto()">
                 <p id="rightLabel">F1</p>
+                <div id="rightPhoto" class="photo">F1</div>
+                <button class="download-button" onclick="downloadPhoto('F', document.getElementById('sliderRight').value)">Télécharger</button>
             </div>
         </div>
-
-        <div id="photoDisplay" class="photo">Photo M1 & F1</div>
     </div>
 
     <script>
@@ -163,23 +174,31 @@
             }
         }
 
-        function updatePhoto() {
-            const leftValue = document.getElementById('sliderLeft').value;
-            const rightValue = document.getElementById('sliderRight').value;
-            document.getElementById('leftLabel').textContent = 'M' + leftValue;
-            document.getElementById('rightLabel').textContent = 'F' + rightValue;
-            document.getElementById('photoDisplay').textContent = `Photo M${leftValue} & F${rightValue}`;
-        }
-
         // Fonction pour afficher/masquer le mot de passe
         document.getElementById('togglePassword').addEventListener('change', function() {
             const passwordInput = document.getElementById('passwordInput');
-            if (this.checked) {
-                passwordInput.type = 'text';
-            } else {
-                passwordInput.type = 'password';
-            }
+            passwordInput.type = this.checked ? 'text' : 'password';
         });
+
+        function updateLeftPhoto() {
+            const leftValue = document.getElementById('sliderLeft').value;
+            document.getElementById('leftLabel').textContent = 'M' + leftValue;
+            document.getElementById('leftPhoto').textContent = 'M' + leftValue;
+        }
+
+        function updateRightPhoto() {
+            const rightValue = document.getElementById('sliderRight').value;
+            document.getElementById('rightLabel').textContent = 'F' + rightValue;
+            document.getElementById('rightPhoto').textContent = 'F' + rightValue;
+        }
+
+        function downloadPhoto(type, number) {
+            const photoName = type + number + '.jpg'; // Exemple de nom de fichier
+            const link = document.createElement('a');
+            link.href = './photos/' + photoName; // Assurez-vous que les photos sont dans le dossier 'photos'
+            link.download = photoName;
+            link.click();
+        }
 
         // Vérifier l'authentification au chargement de la page
         checkAuth();
