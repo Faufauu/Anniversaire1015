@@ -27,7 +27,7 @@
             padding: 20px;
             border-radius: 8px;
             background-color: #3a3f47;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Ombre pour un effet pro */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
         }
 
         h1 {
@@ -95,10 +95,10 @@
             justify-content: space-between;
             width: 100%;
             margin: 20px 0;
-            background-color: #1c1e22; /* Fond agrandi pour les images */
+            background-color: #1c1e22;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Ombre pour un effet pro */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
         }
 
         .image-container img {
@@ -118,7 +118,7 @@
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
-            margin: 10px;
+            margin: 10px 5px;
         }
 
         .download-button:hover {
@@ -133,6 +133,11 @@
 
         #photoContainer {
             display: none;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
@@ -152,23 +157,25 @@
         <div class="slider-container">
             <div>
                 <label for="sliderLeft">Sélectionnez une photo (Gauche) :</label>
-                <input type="range" id="sliderLeft" min="1" max="10" value="1" oninput="updateImageLeft()">
-                <span id="sliderValueLeft" class="slider-value">1 an</span>
+                <input type="range" id="sliderLeft" min="0" max="10" value="0" oninput="updateImageLeft()">
+                <span id="sliderValueLeft" class="slider-value">0 an</span>
             </div>
             <div>
                 <label for="sliderRight">Sélectionnez une photo (Droite) :</label>
-                <input type="range" id="sliderRight" min="1" max="15" value="1" oninput="updateImageRight()">
-                <span id="sliderValueRight" class="slider-value">1 an</span>
+                <input type="range" id="sliderRight" min="0" max="15" value="0" oninput="updateImageRight()">
+                <span id="sliderValueRight" class="slider-value">0 an</span>
             </div>
         </div>
 
         <div class="image-container">
-            <img id="imageLeft" src="photos/M1.jpg" alt="Photo gauche">
-            <img id="imageRight" src="photos/F1.jpg" alt="Photo droite">
+            <img id="imageLeft" src="photos/M0.jpg" alt="Photo gauche">
+            <img id="imageRight" src="photos/F0.jpg" alt="Photo droite">
         </div>
 
-        <button class="download-button" onclick="downloadImage('left')">Télécharger Photo Gauche</button>
-        <button class="download-button" onclick="downloadImage('right')">Télécharger Photo Droite</button>
+        <div class="button-container">
+            <button class="download-button" onclick="downloadImage('left')">Télécharger</button>
+            <button class="download-button" onclick="downloadImage('right')">Télécharger</button>
+        </div>
     </div>
 
     <script>
