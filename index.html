@@ -15,10 +15,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: auto;
-            width: 100%;
-            overflow: hidden;
+            justify-content: flex-start; /* Ajustement pour laisser de l'espace en haut */
+            height: 100vh; /* Prendre toute la hauteur de la fenêtre */
+            overflow-y: auto; /* Activer le défilement vertical */
         }
 
         #authContainer, #photoContainer {
@@ -142,7 +141,7 @@
 
     <script>
         function getPassword() {
-            const encodedPassword = 'TWFyZ2F1eEZhdXN0aW4xMDE1YW5z'; // MargauxFaustin1015ans en Base64
+            const encodedPassword = 'TWFyZ2F1eEZhdXN0aW4xMDE1YW5z';
             return atob(encodedPassword); // Décodage de Base64
         }
 
