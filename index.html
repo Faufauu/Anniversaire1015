@@ -36,7 +36,7 @@
             text-align: center;
         }
 
-        input[type="password"] {
+        input[type="password"], input[type="text"] {
             width: 100%;
             padding: 10px;
             border: none;
@@ -88,7 +88,10 @@
 <body>
     <div id="authContainer">
         <h1>Mot de Passe :</h1>
-        <input type="password" id="passwordInput" placeholder="Mot de passe">
+        <input type="text" id="passwordInput" placeholder="Mot de passe" oninput="updatePasswordVisibility()">
+        <label>
+            <input type="checkbox" id="showPassword" onclick="togglePasswordVisibility()"> Afficher le mot de passe
+        </label>
         <button onclick="checkPassword()">Valider</button>
     </div>
 
@@ -110,15 +113,13 @@
 
     <script>
         function getPassword() {
-            const encodedPassword = 'TWFyZ2F1eEZhdXN0aW4xMDE1'; // MargauxFaustin1015ans en Base64
-            return atob(encodedPassword); // Décodage de Base64
+            return 'MargauxFaustin1015ans'; // Mot de passe en clair
         }
 
         function checkPassword() {
             const enteredPassword = document.getElementById('passwordInput').value;
-            const correctPassword = getPassword();
 
-            if (enteredPassword === correctPassword) {
+            if (enteredPassword === getPassword()) {
                 localStorage.setItem('enteredPassword', enteredPassword);
                 showPhotos();
             } else {
@@ -134,9 +135,8 @@
 
         function checkAuth() {
             const enteredPassword = localStorage.getItem('enteredPassword');
-            const correctPassword = getPassword();
 
-            if (enteredPassword === correctPassword) {
+            if (enteredPassword === getPassword()) {
                 showPhotos();
             } else {
                 document.getElementById('photoContainer').style.display = 'none';
@@ -161,6 +161,16 @@
             link.href = document.getElementById(imageId).src;
             link.download = imageId;
             link.click();
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('passwordInput');
+            const showPasswordCheckbox = document.getElementById('showPassword');
+            passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
+        }
+
+        function updatePasswordVisibility() {
+            togglePasswordVisibility(); // Met à jour l'affichage du mot de passe en temps réel
         }
 
         // Vérifier l'authentification au chargement de la page
