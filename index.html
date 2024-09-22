@@ -8,17 +8,17 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
         body {
-            background-color: #282c34; /* Couleur de fond sombre */
-            color: #ffffff; /* Texte en blanc */
+            background-color: #282c34;
+            color: #ffffff;
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px; /* Ajout de marge */
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Ajustement pour laisser de l'espace en haut */
-            height: 100vh; /* Prendre toute la hauteur de la fenêtre */
-            overflow-y: auto; /* Activer le défilement vertical */
+            justify-content: flex-start;
+            height: 100vh;
+            overflow-y: auto;
         }
 
         #authContainer, #photoContainer {
@@ -26,12 +26,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 90%; /* Limite la largeur à 90% */
-            max-width: 1200px; /* Largeur maximale pour une meilleure apparence */
+            width: 90%;
+            max-width: 1200px;
             padding: 20px;
             border-radius: 8px;
-            background-color: #3a3f47; /* Fond du conteneur */
-            margin: 10px; /* Ajoute un peu d'espace autour */
+            background-color: #3a3f47;
+            margin: 10px;
         }
 
         h1 {
@@ -50,7 +50,7 @@
         }
 
         button {
-            background-color: #61dafb; /* Couleur de bouton */
+            background-color: #61dafb;
             border: none;
             padding: 10px 20px;
             border-radius: 4px;
@@ -61,18 +61,18 @@
         }
 
         button:hover {
-            background-color: #4fa3d6; /* Couleur du bouton au survol */
+            background-color: #4fa3d6;
         }
 
         #photoContainer {
-            display: none; /* Masquer initialement */
+            display: none;
             flex-direction: column;
             align-items: center;
         }
 
         .slider-container {
             display: flex;
-            flex-direction: column; /* Colonne par défaut */
+            flex-direction: column;
             width: 100%;
             margin: 20px 0;
         }
@@ -84,19 +84,19 @@
 
         .photo {
             margin-top: 20px;
-            max-width: 100%; /* Utiliser 100% de la largeur de l'écran */
+            max-width: 100%;
             height: auto;
         }
 
         .download-button {
             margin-top: 10px;
             display: block;
-            text-align: center; /* Centrer le bouton */
+            text-align: center;
         }
 
         @media (min-width: 768px) {
             .slider-container {
-                flex-direction: row; /* Ligne pour les écrans larges */
+                flex-direction: row;
                 justify-content: space-between;
             }
             .slider {
@@ -135,7 +135,7 @@
             <input type="range" id="leftSlider" min="0" max="10" value="0" class="slider" onchange="updatePhotos()">
         </div>
         <div>
-            <img id="Margaux" class="photo" src="photos/M0.JPG" alt="Photo de gauche">
+            <img id="leftPhoto" class="photo" src="photos/M0.JPG" alt="Photo de gauche">
             <button class="download-button" onclick="downloadImage('Margaux')">Télécharger</button>
         </div>
         <div class="slider-container">
@@ -144,7 +144,7 @@
             <input type="range" id="rightSlider" min="0" max="15" value="0" class="slider" onchange="updatePhotos()">
         </div>
         <div>
-            <img id="Faustin" class="photo" src="photos/F0.JPG" alt="Photo de droite">
+            <img id="rightPhoto" class="photo" src="photos/F0.JPG" alt="Photo de droite">
             <button class="download-button" onclick="downloadImage('Faustin')">Télécharger</button>
         </div>
     </div>
@@ -169,7 +169,7 @@
         function showPhotos() {
             document.getElementById('authContainer').style.display = 'none';
             document.getElementById('photoContainer').style.display = 'flex';
-            updatePhotos();
+            updatePhotos(); // Mettre à jour les photos lors de l'affichage
         }
 
         function checkAuth() {
@@ -186,10 +186,13 @@
             const leftSliderValue = document.getElementById('leftSlider').value;
             const rightSliderValue = document.getElementById('rightSlider').value;
 
+            // Met à jour l'âge affiché
             document.getElementById('leftAgeLabel').textContent = `${leftSliderValue} ans`;
             document.getElementById('rightAgeLabel').textContent = `${rightSliderValue} ans`;
 
+            // Noms des fichiers d'images pour M
             const leftPhotoName = (leftSliderValue <= 7) ? `M${leftSliderValue}.JPG` : `M${leftSliderValue}.jpg`;
+            // Noms des fichiers d'images pour F
             const rightPhotoName = (rightSliderValue <= 12) ? `F${rightSliderValue}.JPG` : `F${rightSliderValue}.jpg`;
 
             document.getElementById('leftPhoto').src = `photos/${leftPhotoName}`;
@@ -210,10 +213,11 @@
         }
 
         function updatePasswordVisibility() {
-            togglePasswordVisibility();
+            togglePasswordVisibility(); // Met à jour l'affichage du mot de passe en temps réel
         }
 
-        checkAuth();
+        // Vérifier l'authentification au chargement de la page
+        window.onload = checkAuth; // Assure que la fonction est appelée après que le DOM soit chargé
     </script>
 </body>
 </html>
