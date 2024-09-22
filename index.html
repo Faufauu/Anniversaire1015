@@ -11,22 +11,23 @@
             color: #ffffff; /* Texte en blanc */
             font-family: Arial, sans-serif;
             margin: 0;
+            padding: 20px; /* Ajout de marge */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            width: 100vw;
+            height: auto;
+            width: 100%;
             overflow: hidden;
         }
-        
+
         #authContainer, #photoContainer {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             width: 90%; /* Limite la largeur à 90% */
-            max-width: 800px; /* Largeur maximale pour une meilleure apparence */
+            max-width: 1200px; /* Largeur maximale pour une meilleure apparence */
             padding: 20px;
             border-radius: 8px;
             background-color: #3a3f47; /* Fond du conteneur */
@@ -71,24 +72,41 @@
 
         .slider-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column; /* Colonne par défaut */
             width: 100%;
             margin: 20px 0;
         }
 
         .slider {
-            width: 45%;
+            width: 100%;
+            margin: 10px 0;
         }
 
         .photo {
             margin-top: 20px;
-            max-width: 90%; /* Utiliser 90% de la largeur de l'écran */
+            max-width: 100%; /* Utiliser 100% de la largeur de l'écran */
             height: auto;
         }
 
         .download-button {
             margin-top: 10px;
             display: block;
+        }
+
+        @media (min-width: 768px) {
+            .slider-container {
+                flex-direction: row; /* Ligne pour les écrans larges */
+                justify-content: space-between;
+            }
+            .slider {
+                width: 45%;
+            }
+        }
+
+        .age-label {
+            margin: 10px 0;
+            font-size: 18px;
+            text-align: center;
         }
     </style>
 </head>
@@ -105,12 +123,16 @@
     <div id="photoContainer">
         <h1>Bienvenue !</h1>
         <div class="slider-container">
+            <span class="age-label" id="leftAgeLabel">0 ans</span>
             <input type="range" id="leftSlider" min="0" max="10" value="0" class="slider" onchange="updatePhotos()">
-            <input type="range" id="rightSlider" min="0" max="15" value="0" class="slider" onchange="updatePhotos()">
         </div>
         <div>
             <img id="leftPhoto" class="photo" src="photos/M0.JPG" alt="Photo de gauche">
             <button class="download-button" onclick="downloadImage('leftPhoto')">Télécharger</button>
+        </div>
+        <div class="slider-container">
+            <span class="age-label" id="rightAgeLabel">0 ans</span>
+            <input type="range" id="rightSlider" min="0" max="15" value="0" class="slider" onchange="updatePhotos()">
         </div>
         <div>
             <img id="rightPhoto" class="photo" src="photos/F0.JPG" alt="Photo de droite">
@@ -154,6 +176,10 @@
         function updatePhotos() {
             const leftSliderValue = document.getElementById('leftSlider').value;
             const rightSliderValue = document.getElementById('rightSlider').value;
+
+            // Met à jour l'âge affiché
+            document.getElementById('leftAgeLabel').textContent = `${leftSliderValue} ans`;
+            document.getElementById('rightAgeLabel').textContent = `${rightSliderValue} ans`;
 
             // Noms des fichiers d'images pour M
             const leftPhotoName = (leftSliderValue <= 7) ? `M${leftSliderValue}.JPG` : `M${leftSliderValue}.jpg`;
