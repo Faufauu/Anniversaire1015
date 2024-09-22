@@ -90,6 +90,7 @@
         .download-button {
             margin-top: 10px;
             display: block;
+            text-align: center; /* Centrer le bouton */
         }
 
         @media (min-width: 768px) {
@@ -107,6 +108,12 @@
             font-size: 18px;
             text-align: center;
         }
+
+        .photo-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -122,6 +129,7 @@
     <div id="photoContainer">
         <h1>Bienvenue !</h1>
         <div class="slider-container">
+            <span class="photo-title">Margaux</span>
             <span class="age-label" id="leftAgeLabel">0 ans</span>
             <input type="range" id="leftSlider" min="0" max="10" value="0" class="slider" onchange="updatePhotos()">
         </div>
@@ -130,6 +138,7 @@
             <button class="download-button" onclick="downloadImage('leftPhoto')">Télécharger</button>
         </div>
         <div class="slider-container">
+            <span class="photo-title">Faustin</span>
             <span class="age-label" id="rightAgeLabel">0 ans</span>
             <input type="range" id="rightSlider" min="0" max="15" value="0" class="slider" onchange="updatePhotos()">
         </div>
@@ -142,7 +151,7 @@
     <script>
         function getPassword() {
             const encodedPassword = 'TWFyZ2F1eEZhdXN0aW4xMDE1YW5z';
-            return atob(encodedPassword); // Décodage de Base64
+            return atob(encodedPassword);
         }
 
         function checkPassword() {
@@ -159,7 +168,7 @@
         function showPhotos() {
             document.getElementById('authContainer').style.display = 'none';
             document.getElementById('photoContainer').style.display = 'flex';
-            updatePhotos(); // Mettre à jour les photos lors de l'affichage
+            updatePhotos();
         }
 
         function checkAuth() {
@@ -176,13 +185,10 @@
             const leftSliderValue = document.getElementById('leftSlider').value;
             const rightSliderValue = document.getElementById('rightSlider').value;
 
-            // Met à jour l'âge affiché
             document.getElementById('leftAgeLabel').textContent = `${leftSliderValue} ans`;
             document.getElementById('rightAgeLabel').textContent = `${rightSliderValue} ans`;
 
-            // Noms des fichiers d'images pour M
             const leftPhotoName = (leftSliderValue <= 7) ? `M${leftSliderValue}.JPG` : `M${leftSliderValue}.jpg`;
-            // Noms des fichiers d'images pour F
             const rightPhotoName = (rightSliderValue <= 12) ? `F${rightSliderValue}.JPG` : `F${rightSliderValue}.jpg`;
 
             document.getElementById('leftPhoto').src = `photos/${leftPhotoName}`;
@@ -203,10 +209,9 @@
         }
 
         function updatePasswordVisibility() {
-            togglePasswordVisibility(); // Met à jour l'affichage du mot de passe en temps réel
+            togglePasswordVisibility();
         }
 
-        // Vérifier l'authentification au chargement de la page
         checkAuth();
     </script>
 </body>
