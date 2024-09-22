@@ -12,10 +12,12 @@
             font-family: Arial, sans-serif;
             margin: 0;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
             height: 100vh;
+            width: 100vw;
+            overflow: hidden;
         }
         
         #authContainer, #photoContainer {
@@ -24,10 +26,11 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            max-width: 400px;
             padding: 20px;
             border-radius: 8px;
             background-color: #3a3f47; /* Fond du conteneur */
+            flex: 1; /* Prend tout l'espace disponible */
+            overflow: auto; /* Permet le défilement si nécessaire */
         }
 
         h1 {
@@ -62,12 +65,15 @@
 
         #photoContainer {
             display: none; /* Masquer initialement */
+            flex-direction: column;
+            align-items: center;
         }
 
         .slider-container {
             display: flex;
             justify-content: space-between;
             width: 100%;
+            margin: 20px 0;
         }
 
         .slider {
@@ -76,7 +82,8 @@
 
         .photo {
             margin-top: 20px;
-            max-width: 100%;
+            max-width: 90%; /* Utiliser 90% de la largeur de l'écran */
+            height: auto;
         }
 
         .download-button {
@@ -113,7 +120,8 @@
 
     <script>
         function getPassword() {
-            return 'MargauxFaustin1015ans'; // Mot de passe en clair
+            const encodedPassword = 'TWFyZ2F1eEZhdXN0aW4xMDE1YW5z'; // MargauxFaustin1015ans en Base64
+            return atob(encodedPassword); // Décodage de Base64
         }
 
         function checkPassword() {
