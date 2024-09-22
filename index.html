@@ -7,27 +7,27 @@
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            background-color: #282c34;
-            color: #ffffff;
+            background-color: #282c34; /* Couleur de fond sombre */
+            color: #ffffff; /* Texte en blanc */
             font-family: Arial, sans-serif;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
         }
-
+        
         #authContainer, #photoContainer {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             width: 100%;
-            max-width: 800px;
+            max-width: 400px;
             padding: 20px;
             border-radius: 8px;
-            background-color: #3a3f47;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+            background-color: #3a3f47; /* Fond du conteneur */
         }
 
         h1 {
@@ -45,72 +45,8 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .slider-container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin: 20px 0;
-            align-items: center;
-        }
-
-        .slider-container label {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #ffffff;
-        }
-
-        .slider-container input[type="range"] {
-            -webkit-appearance: none;
-            width: 300px;
-            height: 6px;
-            background: #ddd;
-            border-radius: 5px;
-            outline: none;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-
-        .slider-container input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background: #61dafb;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-        }
-
-        .slider-container input[type="range"]::-moz-range-thumb {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background: #61dafb;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin: 20px 0;
-            background-color: #1c1e22;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
-        }
-
-        .image-container img {
-            max-width: 300px;
-            max-height: 300px;
-            border-radius: 8px;
-            margin: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-        }
-
-        .download-button {
-            background-color: #61dafb;
+        button {
+            background-color: #61dafb; /* Couleur de bouton */
             border: none;
             padding: 10px 20px;
             border-radius: 4px;
@@ -118,26 +54,34 @@
             font-size: 16px;
             cursor: pointer;
             transition: background-color 0.3s;
-            margin: 10px 5px;
         }
 
-        .download-button:hover {
-            background-color: #4fa3d6;
-        }
-
-        .slider-value {
-            font-size: 18px;
-            color: #ffffff;
-            margin: 0 10px;
+        button:hover {
+            background-color: #4fa3d6; /* Couleur du bouton au survol */
         }
 
         #photoContainer {
-            display: none;
+            display: none; /* Masquer initialement */
         }
 
-        .button-container {
+        .slider-container {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .slider {
+            width: 45%;
+        }
+
+        .photo {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+
+        .download-button {
+            margin-top: 10px;
+            display: block;
         }
     </style>
 </head>
@@ -145,50 +89,29 @@
     <div id="authContainer">
         <h1>Mot de Passe :</h1>
         <input type="password" id="passwordInput" placeholder="Mot de passe">
-        <label>
-            <input type="checkbox" id="togglePassword"> Cacher le mot de passe
-        </label>
         <button onclick="checkPassword()">Valider</button>
     </div>
 
     <div id="photoContainer">
         <h1>Bienvenue !</h1>
-
         <div class="slider-container">
-            <div>
-                <label for="sliderLeft">Sélectionnez une photo (Gauche) :</label>
-                <input type="range" id="sliderLeft" min="0" max="10" value="0" oninput="updateImageLeft()">
-                <span id="sliderValueLeft" class="slider-value">0 an</span>
-            </div>
-            <div>
-                <label for="sliderRight">Sélectionnez une photo (Droite) :</label>
-                <input type="range" id="sliderRight" min="0" max="15" value="0" oninput="updateImageRight()">
-                <span id="sliderValueRight" class="slider-value">0 an</span>
-            </div>
+            <input type="range" id="leftSlider" min="0" max="10" value="0" class="slider" onchange="updatePhotos()">
+            <input type="range" id="rightSlider" min="0" max="15" value="0" class="slider" onchange="updatePhotos()">
         </div>
-
-        <div class="image-container">
-            <img id="imageLeft" src="photos/M0.jpg" alt="Photo gauche">
-            <img id="imageRight" src="photos/F0.jpg" alt="Photo droite">
+        <div>
+            <img id="leftPhoto" class="photo" src="photos/M0.JPG" alt="Photo de gauche">
+            <button class="download-button" onclick="downloadImage('leftPhoto')">Télécharger</button>
         </div>
-
-        <div class="button-container">
-            <button class="download-button" onclick="downloadImage('left')">Télécharger</button>
-            <button class="download-button" onclick="downloadImage('right')">Télécharger</button>
+        <div>
+            <img id="rightPhoto" class="photo" src="photos/F0.JPG" alt="Photo de droite">
+            <button class="download-button" onclick="downloadImage('rightPhoto')">Télécharger</button>
         </div>
     </div>
 
     <script>
-        // Fonction pour afficher ou masquer le mot de passe
-        document.getElementById('togglePassword').addEventListener('change', function() {
-            const passwordInput = document.getElementById('passwordInput');
-            passwordInput.type = this.checked ? 'text' : 'password';
-        });
-
-        // Fonction pour obtenir le mot de passe masqué
         function getPassword() {
-            const encodedPassword = 'TWFyZ2F1eEZhdXN0aW4xMDE1YW5z'; // MargauxFaustin1015ans en Base64
-            return atob(encodedPassword);
+            const encodedPassword = 'TWFyZ2F1eEZhdXN0aW4xMDE1'; // MargauxFaustin1015ans en Base64
+            return atob(encodedPassword); // Décodage de Base64
         }
 
         function checkPassword() {
@@ -206,6 +129,7 @@
         function showPhotos() {
             document.getElementById('authContainer').style.display = 'none';
             document.getElementById('photoContainer').style.display = 'flex';
+            updatePhotos(); // Mettre à jour les photos lors de l'affichage
         }
 
         function checkAuth() {
@@ -219,26 +143,23 @@
             }
         }
 
-        // Mise à jour des images et des valeurs des sliders
-        function updateImageLeft() {
-            const sliderValue = document.getElementById('sliderLeft').value;
-            document.getElementById('imageLeft').src = `photos/M${sliderValue}.jpg`;
-            document.getElementById('sliderValueLeft').textContent = `${sliderValue} an${sliderValue > 1 ? 's' : ''}`;
+        function updatePhotos() {
+            const leftSliderValue = document.getElementById('leftSlider').value;
+            const rightSliderValue = document.getElementById('rightSlider').value;
+
+            // Noms des fichiers d'images pour M
+            const leftPhotoName = (leftSliderValue <= 7) ? `M${leftSliderValue}.JPG` : `M${leftSliderValue}.jpg`;
+            // Noms des fichiers d'images pour F
+            const rightPhotoName = (rightSliderValue <= 12) ? `F${rightSliderValue}.JPG` : `F${rightSliderValue}.jpg`;
+
+            document.getElementById('leftPhoto').src = `photos/${leftPhotoName}`;
+            document.getElementById('rightPhoto').src = `photos/${rightPhotoName}`;
         }
 
-        function updateImageRight() {
-            const sliderValue = document.getElementById('sliderRight').value;
-            document.getElementById('imageRight').src = `photos/F${sliderValue}.jpg`;
-            document.getElementById('sliderValueRight').textContent = `${sliderValue} an${sliderValue > 1 ? 's' : ''}`;
-        }
-
-        // Téléchargement de la photo
-        function downloadImage(side) {
-            let imageId = side === 'left' ? 'imageLeft' : 'imageRight';
-            let img = document.getElementById(imageId);
-            let link = document.createElement('a');
-            link.href = img.src;
-            link.download = img.src.split('/').pop();
+        function downloadImage(imageId) {
+            const link = document.createElement('a');
+            link.href = document.getElementById(imageId).src;
+            link.download = imageId;
             link.click();
         }
 
