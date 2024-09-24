@@ -150,11 +150,18 @@
             <input type="range" id="leftSlider" min="0" max="10" value="0" class="slider" onchange="updatePhotos()">
         </div>
         <div class="photo-wrapper">
-            <!-- Precharger toutes les images de Margaux -->
+            <!-- Images de Margaux (M0 à M10) -->
             <img id="M0" class="photo visible" src="photos/M0.JPG" alt="Margaux 0 ans">
             <img id="M1" class="photo" src="photos/M1.JPG" alt="Margaux 1 an">
             <img id="M2" class="photo" src="photos/M2.JPG" alt="Margaux 2 ans">
-            <!-- Ajouter plus d'images si nécessaire -->
+            <img id="M3" class="photo" src="photos/M3.JPG" alt="Margaux 3 ans">
+            <img id="M4" class="photo" src="photos/M4.JPG" alt="Margaux 4 ans">
+            <img id="M5" class="photo" src="photos/M5.JPG" alt="Margaux 5 ans">
+            <img id="M6" class="photo" src="photos/M6.JPG" alt="Margaux 6 ans">
+            <img id="M7" class="photo" src="photos/M7.JPG" alt="Margaux 7 ans">
+            <img id="M8" class="photo" src="photos/M8.jpg" alt="Margaux 8 ans">
+            <img id="M9" class="photo" src="photos/M9.jpg" alt="Margaux 9 ans">
+            <img id="M10" class="photo" src="photos/M10.jpg" alt="Margaux 10 ans">
         </div>
         <button class="download-button" onclick="downloadImage('Margaux')">Télécharger</button>
 
@@ -164,11 +171,23 @@
             <input type="range" id="rightSlider" min="0" max="15" value="0" class="slider" onchange="updatePhotos()">
         </div>
         <div class="photo-wrapper">
-            <!-- Precharger toutes les images de Faustin -->
+            <!-- Images de Faustin (F0 à F15) -->
             <img id="F0" class="photo visible" src="photos/F0.JPG" alt="Faustin 0 ans">
             <img id="F1" class="photo" src="photos/F1.JPG" alt="Faustin 1 an">
             <img id="F2" class="photo" src="photos/F2.JPG" alt="Faustin 2 ans">
-            <!-- Ajouter plus d'images si nécessaire -->
+            <img id="F3" class="photo" src="photos/F3.JPG" alt="Faustin 3 ans">
+            <img id="F4" class="photo" src="photos/F4.JPG" alt="Faustin 4 ans">
+            <img id="F5" class="photo" src="photos/F5.JPG" alt="Faustin 5 ans">
+            <img id="F6" class="photo" src="photos/F6.JPG" alt="Faustin 6 ans">
+            <img id="F7" class="photo" src="photos/F7.JPG" alt="Faustin 7 ans">
+            <img id="F8" class="photo" src="photos/F8.JPG" alt="Faustin 8 ans">
+            <img id="F9" class="photo" src="photos/F9.JPG" alt="Faustin 9 ans">
+            <img id="F10" class="photo" src="photos/F10.JPG" alt="Faustin 10 ans">
+            <img id="F11" class="photo" src="photos/F11.JPG" alt="Faustin 11 ans">
+            <img id="F12" class="photo" src="photos/F12.JPG" alt="Faustin 12 ans">
+            <img id="F13" class="photo" src="photos/F13.jpg" alt="Faustin 13 ans">
+            <img id="F14" class="photo" src="photos/F14.jpg" alt="Faustin 14 ans">
+            <img id="F15" class="photo" src="photos/F15.jpg" alt="Faustin 15 ans">
         </div>
         <button class="download-button" onclick="downloadImage('Faustin')">Télécharger</button>
     </div>
@@ -190,66 +209,4 @@
             }
         }
 
-        function showPhotos() {
-            document.getElementById('authContainer').style.display = 'none';
-            document.getElementById('photoContainer').style.display = 'flex';
-            updatePhotos(); // Mettre à jour les photos lors de l'affichage
-        }
-
-        function checkAuth() {
-            const enteredPassword = localStorage.getItem('enteredPassword');
-
-            if (enteredPassword === getPassword()) {
-                showPhotos();
-            } else {
-                document.getElementById('photoContainer').style.display = 'none';
-            }
-        }
-
-        function updatePhotos() {
-            const leftSliderValue = document.getElementById('leftSlider').value;
-            const rightSliderValue = document.getElementById('rightSlider').value;
-
-            // Met à jour l'âge affiché
-            document.getElementById('leftAgeLabel').textContent = `${leftSliderValue} ans`;
-            document.getElementById('rightAgeLabel').textContent = `${rightSliderValue} ans`;
-
-            // Gérer l'affichage des images pour Margaux
-            for (let i = 0; i <= 10; i++) {
-                const photo = document.getElementById(`M${i}`);
-                if (photo) {
-                    photo.classList.toggle('visible', i == leftSliderValue);
-                }
-            }
-
-            // Gérer l'affichage des images pour Faustin
-            for (let i = 0; i <= 15; i++) {
-                const photo = document.getElementById(`F${i}`);
-                if (photo) {
-                    photo.classList.toggle('visible', i == rightSliderValue);
-                }
-            }
-        }
-
-        function downloadImage(imageId) {
-            const link = document.createElement('a');
-            link.href = document.getElementById(imageId).src;
-            link.download = imageId;
-            link.click();
-        }
-
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('passwordInput');
-            const showPasswordCheckbox = document.getElementById('showPassword');
-            passwordInput.type = showPasswordCheckbox.checked ? 'text' : 'password';
-        }
-
-        function updatePasswordVisibility() {
-            togglePasswordVisibility(); // Met à jour l'affichage du mot de passe en temps réel
-        }
-
-        // Vérifier l'authentification au chargement de la page
-        window.onload = checkAuth; // Assure que la fonction est appelée après que le DOM soit chargé
-    </script>
-</body>
-</html>
+        function show
