@@ -209,4 +209,58 @@
             }
         }
 
-        function show
+        function showPhotos() {
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('photoContainer').style.display = 'flex';
+            updatePhotos(); // Mettre à jour les photos affichées
+        }
+
+        function updatePhotos() {
+            const leftIndex = document.getElementById('leftSlider').value;
+            const rightIndex = document.getElementById('rightSlider').value;
+
+            // Mettre à jour les photos de gauche
+            for (let i = 0; i <= 10; i++) {
+                const leftPhoto = document.getElementById(`leftPhoto${i}`);
+                leftPhoto.style.opacity = i == leftIndex ? '1' : '0'; // Montre uniquement l'image sélectionnée
+            }
+            document.getElementById('leftAgeLabel').innerText = `${leftIndex} ans`;
+
+            // Mettre à jour les photos de droite
+            for (let i = 0; i <= 15; i++) {
+                const rightPhoto = document.getElementById(`rightPhoto${i}`);
+                rightPhoto.style.opacity = i == rightIndex ? '1' : '0'; // Montre uniquement l'image sélectionnée
+            }
+            document.getElementById('rightAgeLabel').innerText = `${rightIndex} ans`;
+        }
+
+        function downloadImage(prefix) {
+            const index = document.getElementById(`${prefix}Slider`).value;
+            const imageUrl = document.getElementById(`${prefix}${index}`).src;
+
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = `${prefix}${index}.jpg`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('passwordInput');
+            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
+        }
+
+        function updatePasswordVisibility() {
+            const enteredPassword = document.getElementById('passwordInput').value;
+            const showPassword = document.getElementById('showPassword').checked;
+
+            if (showPassword) {
+                document.getElementById('passwordInput').type = 'text';
+            } else {
+                document.getElementById('passwordInput').type = 'password';
+            }
+        }
+    </script>
+</body>
+</html>
