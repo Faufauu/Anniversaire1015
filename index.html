@@ -187,21 +187,21 @@
             const rightSliderValue = document.getElementById('rightSlider').value;
 
             // Met à jour l'âge affiché
-            document.getElementById('leftAgeLabel').textContent = ${leftSliderValue} ans;
-            document.getElementById('rightAgeLabel').textContent = ${rightSliderValue} ans;
+            document.getElementById('leftAgeLabel').textContent = leftSliderValue + ' ans';
+            document.getElementById('rightAgeLabel').textContent = rightSliderValue + ' ans';
 
             // Noms des fichiers d'images pour M
-            const leftPhotoName = (leftSliderValue <= 7) ? M${leftSliderValue}.JPG : M${leftSliderValue}.jpg;
+            const leftPhotoName = (leftSliderValue <= 7) ? 'M' + leftSliderValue + '.JPG' : 'M' + leftSliderValue + '.jpg';
             // Noms des fichiers d'images pour F
-            const rightPhotoName = (rightSliderValue <= 12) ? F${rightSliderValue}.JPG : F${rightSliderValue}.jpg;
+            const rightPhotoName = (rightSliderValue <= 12) ? 'F' + rightSliderValue + '.JPG' : 'F' + rightSliderValue + '.jpg';
 
-            document.getElementById('leftPhoto').src = photos/${leftPhotoName};
-            document.getElementById('rightPhoto').src = photos/${rightPhotoName};
+            document.getElementById('leftPhoto').src = 'photos/' + leftPhotoName;
+            document.getElementById('rightPhoto').src = 'photos/' + rightPhotoName;
         }
 
         function downloadImage(imageId) {
             const link = document.createElement('a');
-            link.href = document.getElementById(imageId).src;
+            link.href = document.getElementById(imageId === 'Margaux' ? 'leftPhoto' : 'rightPhoto').src;
             link.download = imageId;
             link.click();
         }
