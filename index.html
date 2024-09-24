@@ -86,6 +86,12 @@
             margin-top: 20px;
             max-width: 100%;
             height: auto;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .photo.visible {
+            opacity: 1;
         }
 
         .download-button {
@@ -135,7 +141,11 @@
             <input type="range" id="leftSlider" min="0" max="10" value="0" class="slider" onchange="updatePhotos()">
         </div>
         <div>
-            <img id="leftPhoto" class="photo" src="photos/M0.JPG" alt="Photo de gauche">
+            <!-- Precharger toutes les images de Margaux -->
+            <img id="M0" class="photo visible" src="photos/M0.JPG" alt="Margaux 0 ans">
+            <img id="M1" class="photo" src="photos/M1.JPG" alt="Margaux 1 an">
+            <img id="M2" class="photo" src="photos/M2.JPG" alt="Margaux 2 ans">
+            <!-- Ajouter plus d'images si nécessaire -->
             <button class="download-button" onclick="downloadImage('Margaux')">Télécharger</button>
         </div>
         <div class="slider-container">
@@ -144,7 +154,11 @@
             <input type="range" id="rightSlider" min="0" max="15" value="0" class="slider" onchange="updatePhotos()">
         </div>
         <div>
-            <img id="rightPhoto" class="photo" src="photos/F0.JPG" alt="Photo de droite">
+            <!-- Precharger toutes les images de Faustin -->
+            <img id="F0" class="photo visible" src="photos/F0.JPG" alt="Faustin 0 ans">
+            <img id="F1" class="photo" src="photos/F1.JPG" alt="Faustin 1 an">
+            <img id="F2" class="photo" src="photos/F2.JPG" alt="Faustin 2 ans">
+            <!-- Ajouter plus d'images si nécessaire -->
             <button class="download-button" onclick="downloadImage('Faustin')">Télécharger</button>
         </div>
     </div>
@@ -190,13 +204,21 @@
             document.getElementById('leftAgeLabel').textContent = `${leftSliderValue} ans`;
             document.getElementById('rightAgeLabel').textContent = `${rightSliderValue} ans`;
 
-            // Noms des fichiers d'images pour M
-            const leftPhotoName = (leftSliderValue <= 7) ? `M${leftSliderValue}.JPG` : `M${leftSliderValue}.jpg`;
-            // Noms des fichiers d'images pour F
-            const rightPhotoName = (rightSliderValue <= 12) ? `F${rightSliderValue}.JPG` : `F${rightSliderValue}.jpg`;
+            // Gérer l'affichage des images pour Margaux
+            for (let i = 0; i <= 10; i++) {
+                const photo = document.getElementById(`M${i}`);
+                if (photo) {
+                    photo.classList.toggle('visible', i == leftSliderValue);
+                }
+            }
 
-            document.getElementById('leftPhoto').src = `photos/${leftPhotoName}`;
-            document.getElementById('rightPhoto').src = `photos/${rightPhotoName}`;
+            // Gérer l'affichage des images pour Faustin
+            for (let i = 0; i <= 15; i++) {
+                const photo = document.getElementById(`F${i}`);
+                if (photo) {
+                    photo.classList.toggle('visible', i == rightSliderValue);
+                }
+            }
         }
 
         function downloadImage(imageId) {
