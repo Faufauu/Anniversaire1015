@@ -115,11 +115,18 @@
             margin-bottom: 10px;
             text-align: center;
         }
+
+        #passwordInfo {
+    margin-bottom: 10px;
+    font-size: 14px; /* Ajustez la taille de la police si nécessaire */
+    color: #b0b0b0; /* Une couleur grise claire pour le texte */
+}
     </style>
 </head>
 <body>
     <div id="authContainer">
         <h1>Mot de Passe :</h1>
+        <p id="passwordInfo">Après les 21 énigmes, mot de passe tu trouveras !</p>
         <input type="text" id="passwordInput" placeholder="Mot de passe" oninput="updatePasswordVisibility()">
         <label>
             <input type="checkbox" id="showPassword" onclick="togglePasswordVisibility()"> Afficher le mot de passe
